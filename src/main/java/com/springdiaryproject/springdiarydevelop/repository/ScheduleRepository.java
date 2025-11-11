@@ -1,4 +1,7 @@
 package com.springdiaryproject.springdiarydevelop.repository;
 
-public class ScheduleRepository {
+import com.springdiaryproject.springdiarydevelop.entity.Schedule;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 }

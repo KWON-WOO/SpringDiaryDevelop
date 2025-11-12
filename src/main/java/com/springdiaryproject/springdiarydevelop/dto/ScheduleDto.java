@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 
 @Getter
 public class ScheduleDto {
-    private Long id;
-    private String name;
-    private String title;
-    private String content;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private final Long id;
+    private final String name;
+    private final String title;
+    private final String content;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime modifiedAt;
     public ScheduleDto(Schedule schedule) {
         this.id = schedule.getId();
         this.name = schedule.getName();

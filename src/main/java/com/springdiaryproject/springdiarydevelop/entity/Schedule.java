@@ -16,7 +16,7 @@ public class Schedule extends BaseEntity{
     private Long id;
     @Column(nullable=false)
     private String name;
-    @Column(nullable = false)
+    @Column(nullable =false)
     private String title;
     @Column(nullable=false)
     private String content;
@@ -25,5 +25,17 @@ public class Schedule extends BaseEntity{
         this.name = request.getName();
         this.title = request.getTitle();
         this.content = request.getContent();
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

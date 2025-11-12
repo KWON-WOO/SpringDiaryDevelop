@@ -1,8 +1,6 @@
 package com.springdiaryproject.springdiarydevelop.controller;
 
-import com.springdiaryproject.springdiarydevelop.dto.CreateScheduleRequest;
-import com.springdiaryproject.springdiarydevelop.dto.CreateScheduleResponse;
-import com.springdiaryproject.springdiarydevelop.dto.ReadScheduleResponse;
+import com.springdiaryproject.springdiarydevelop.dto.*;
 import com.springdiaryproject.springdiarydevelop.service.DiaryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +19,15 @@ public class DiaryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/schedules/{id}")
-    public ResponseEntity<ReadScheduleResponse> readSchedule(@RequestParam @Valid String name){
-        return ResponseEntity.status(HttpStatus.OK).body(new ReadScheduleResponse());
+    @GetMapping("/schedules")
+    public ResponseEntity<ReadScheduleResponse> readSchedule(@RequestParam Long id){
+        ReadScheduleResponse result = diaryService.readSchedule(id);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @PatchMapping("/schedules")
+    public ResponseEntity<UpdateScheduleResponse> updateSchedule(@RequestParam Long id, @RequestBody UpdateScheduleRequest request){
+        UpdateScheduleResponse result = diaryService.updateSchedule(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }

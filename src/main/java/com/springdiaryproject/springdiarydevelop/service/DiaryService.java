@@ -6,6 +6,7 @@ import com.springdiaryproject.springdiarydevelop.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 @RequiredArgsConstructor
@@ -19,11 +20,27 @@ public class DiaryService {
         return new CreateScheduleResponse(dto);
     }
 
-//    @Transactional
-//    public ReadScheduleResponse readSchedule(ReadScheduleRequest request) {
-//        Schedule schedule = new Schedule(request);
-//
-//        return new ReadScheduleResponse();
-//
-//    }
+    @Transactional(readOnly = true)
+    public ReadScheduleResponse readSchedule(Long id) {
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("잘못된 입력값.")
+        );
+        return new ReadScheduleResponse(new ScheduleDto(schedule));
+    }
+
+    @Transactional
+    public UpdateScheduleResponse updateSchedule(Long id, UpdateScheduleRequest request) {
+        Schedule schedule = getSchedule(id);
+        if (!request.getName().isEmpty()) schedule.setName(request.getName());
+        if (!request.getTitle().isEmpty()) schedule.setTitle(request.getTitle());
+        if (!request.getContent().isEmpty()) schedule.setContent(request.getContent());
+
+        return new UpdateScheduleResponse(new ScheduleDto(schedule));
+    }
+
+    public Schedule getSchedule(Long id) {
+        return scheduleRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("잘못된 값")
+        );
+    }
 }

@@ -2,7 +2,6 @@ package com.springdiaryproject.springdiarydevelop.controller;
 
 import com.springdiaryproject.springdiarydevelop.dto.*;
 import com.springdiaryproject.springdiarydevelop.service.DiaryService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +28,10 @@ public class DiaryController {
     public ResponseEntity<UpdateScheduleResponse> updateSchedule(@RequestParam Long id, @RequestBody UpdateScheduleRequest request){
         UpdateScheduleResponse result = diaryService.updateSchedule(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+    @DeleteMapping("/schedules")
+    public ResponseEntity<Void> deleteSchedule(@RequestParam Long id){
+        diaryService.deleteSchedule(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

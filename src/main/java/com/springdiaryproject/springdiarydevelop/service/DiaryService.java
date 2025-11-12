@@ -6,7 +6,6 @@ import com.springdiaryproject.springdiarydevelop.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 @RequiredArgsConstructor
@@ -38,9 +37,16 @@ public class DiaryService {
         return new UpdateScheduleResponse(new ScheduleDto(schedule));
     }
 
+    @Transactional
+    public void deleteSchedule(Long id) {
+        scheduleRepository.delete(getSchedule(id));
+
+    }
+
     public Schedule getSchedule(Long id) {
         return scheduleRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("잘못된 값")
         );
     }
+
 }

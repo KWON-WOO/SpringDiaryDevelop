@@ -12,7 +12,7 @@ public class CreateUserResponse {
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
-    public  CreateUserResponse(UserDto dto) {
+    public CreateUserResponse(UserDto dto) {
         this.id = dto.getId();
         this.name = dto.getName();
         this.email = dto.getEmail();

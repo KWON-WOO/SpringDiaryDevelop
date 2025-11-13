@@ -13,12 +13,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository repository;
+
     @Transactional
     public CreateUserResponse create(CreateUserRequest request) {
         User user = new User(request);
         UserDto dto = new UserDto(repository.save(user));
         return new CreateUserResponse(dto);
     }
+
     @Transactional
     public ReadUserResponse read(String name) {
         User user = repository.findByName(name).orElseThrow(
@@ -26,6 +28,7 @@ public class UserService {
         );
         return new ReadUserResponse(new UserDto(user));
     }
+
     @Transactional
     public UpdateUserResponse update(Long id, UpdateUserRequest request) {
         User user = repository.findById(id).orElseThrow(
@@ -36,8 +39,8 @@ public class UserService {
         return new UpdateUserResponse(new UserDto(user));
     }
 
-    public void DeleteUserResponse delete(Long id) {
+    @Transactional
+    public void delete(Long id) {
         repository.deleteById(id);
-
     }
 }

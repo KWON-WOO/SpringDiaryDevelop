@@ -12,6 +12,7 @@ public class UserDto {
     private final String email;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
+
     public UserDto(User user) {
         this.id = user.getId();
         this.name = user.getName();

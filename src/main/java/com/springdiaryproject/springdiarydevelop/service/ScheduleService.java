@@ -42,6 +42,7 @@ public class ScheduleService {
         repository.delete(getSchedule(id));
 
     }
+
     public Schedule getSchedule(Long id) {
         return repository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("잘못된 값")

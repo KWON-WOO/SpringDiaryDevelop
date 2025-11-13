@@ -1,9 +1,7 @@
 package com.springdiaryproject.springdiarydevelop.controller;
 
 import com.springdiaryproject.springdiarydevelop.dto.Schedule.*;
-import com.springdiaryproject.springdiarydevelop.dto.User.CreateUserRequest;
-import com.springdiaryproject.springdiarydevelop.dto.User.CreateUserResponse;
-import com.springdiaryproject.springdiarydevelop.dto.User.ReadUserResponse;
+import com.springdiaryproject.springdiarydevelop.dto.User.*;
 import com.springdiaryproject.springdiarydevelop.service.ScheduleService;
 import com.springdiaryproject.springdiarydevelop.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,24 +16,25 @@ public class DiaryController {
     private final UserService userService;
 
     @PostMapping("/schedules")
-    public ResponseEntity<CreateScheduleResponse> createSchedule(@RequestBody CreateScheduleRequest request){
+    public ResponseEntity<CreateScheduleResponse> createSchedule(@RequestBody CreateScheduleRequest request) {
         CreateScheduleResponse response = scheduleService.save(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("/schedules")
-    public ResponseEntity<ReadScheduleResponse> readSchedule(@RequestParam Long id){
+    public ResponseEntity<ReadScheduleResponse> readSchedule(@RequestParam Long id) {
         ReadScheduleResponse result = scheduleService.read(id);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PatchMapping("/schedules")
-    public ResponseEntity<UpdateScheduleResponse> updateSchedule(@RequestParam Long id, @RequestBody UpdateScheduleRequest request){
+    public ResponseEntity<UpdateScheduleResponse> updateSchedule(@RequestParam Long id, @RequestBody UpdateScheduleRequest request) {
         UpdateScheduleResponse result = scheduleService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
     @DeleteMapping("/schedules")
-    public ResponseEntity<Void> deleteSchedule(@RequestParam Long id){
+    public ResponseEntity<Void> deleteSchedule(@RequestParam Long id) {
         scheduleService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -47,8 +46,20 @@ public class DiaryController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<ReadUserResponse> readUser(@RequestParam String name){
+    public ResponseEntity<ReadUserResponse> readUser(@RequestParam String name) {
         ReadUserResponse result = userService.read(name);
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @PatchMapping("/user")
+    public ResponseEntity<UpdateUserResponse> update(@RequestParam Long id, @RequestBody UpdateUserRequest request) {
+        UpdateUserResponse result = userService.update(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> delete(@RequestParam Long id) {
+        userService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

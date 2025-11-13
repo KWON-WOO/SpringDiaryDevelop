@@ -11,6 +11,7 @@ public class ReadUserResponse {
     private final String email;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
+
     public ReadUserResponse(UserDto dto) {
         this.id = dto.getId();
         this.name = dto.getName();

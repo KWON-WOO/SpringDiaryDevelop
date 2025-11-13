@@ -9,17 +9,17 @@ import lombok.Setter;
 
 @Getter
 @Entity
-@Table(name="users")
-@NoArgsConstructor(access= AccessLevel.PROTECTED)
-public class User extends BaseEntity{
+@Table(name = "users")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class User extends BaseEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Setter
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String name;
     @Setter
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String email;
 
     public User(CreateUserRequest request) {

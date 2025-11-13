@@ -51,13 +51,13 @@ public class DiaryController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @PatchMapping("/user")
+    @PatchMapping("/users")
     public ResponseEntity<UpdateUserResponse> update(@RequestParam Long id, @RequestBody UpdateUserRequest request) {
         UpdateUserResponse result = userService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/users")
     public ResponseEntity<Void> delete(@RequestParam Long id) {
         userService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

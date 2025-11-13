@@ -3,7 +3,6 @@ package com.springdiaryproject.springdiarydevelop.controller;
 import com.springdiaryproject.springdiarydevelop.dto.Schedule.*;
 import com.springdiaryproject.springdiarydevelop.dto.User.CreateUserRequest;
 import com.springdiaryproject.springdiarydevelop.dto.User.CreateUserResponse;
-import com.springdiaryproject.springdiarydevelop.dto.User.ReadUserRequest;
 import com.springdiaryproject.springdiarydevelop.dto.User.ReadUserResponse;
 import com.springdiaryproject.springdiarydevelop.service.ScheduleService;
 import com.springdiaryproject.springdiarydevelop.service.UserService;
@@ -48,8 +47,8 @@ public class DiaryController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<ReadUserResponse> readUser(@RequestParam Integer id){
-        ReadUserResponse result = userService.read(id);
+    public ResponseEntity<ReadUserResponse> readUser(@RequestParam String name){
+        ReadUserResponse result = userService.read(name);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }

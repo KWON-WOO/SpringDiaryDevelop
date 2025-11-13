@@ -7,11 +7,11 @@ import java.time.LocalDateTime;
 
 @Getter
 public class UserDto {
-    private Integer id;
-    private String name;
-    private String email;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private final Long id;
+    private final String name;
+    private final String email;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime modifiedAt;
     public UserDto(User user) {
         this.id = user.getId();
         this.name = user.getName();

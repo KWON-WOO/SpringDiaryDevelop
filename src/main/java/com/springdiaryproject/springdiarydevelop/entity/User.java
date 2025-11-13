@@ -13,9 +13,10 @@ import lombok.NoArgsConstructor;
 public class User extends BaseEntity{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(nullable=false)
     private String name;
+    @Column(nullable=false)
     private String email;
 
     public User(CreateUserRequest request) {

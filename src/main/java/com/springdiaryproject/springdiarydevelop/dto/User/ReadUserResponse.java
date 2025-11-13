@@ -6,11 +6,11 @@ import java.time.LocalDateTime;
 
 @Getter
 public class ReadUserResponse {
-    private Integer id;
-    private String name;
-    private String email;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private final Long id;
+    private final String name;
+    private final String email;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime modifiedAt;
     public ReadUserResponse(UserDto dto) {
         this.id = dto.getId();
         this.name = dto.getName();

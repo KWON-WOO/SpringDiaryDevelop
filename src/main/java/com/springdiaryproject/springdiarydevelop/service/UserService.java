@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    UserRepository repository;
+    private final UserRepository repository;
     @Transactional
     public CreateUserResponse create(CreateUserRequest request) {
         User user = new User(request);
@@ -20,9 +20,12 @@ public class UserService {
         return new CreateUserResponse(dto);
     }
     @Transactional
-    public List<ReadUserResponse> read(Integer id) {
-        repository.findById(id);
+    public ReadUserResponse read(String name) {
+        User user = repository.findByName(name).orElseThrow(
+                () -> new IllegalArgumentException("NotFoundName")
+        );
 
+        return new ReadUserResponse(new UserDto(user));
 
     }
 }

@@ -24,8 +24,20 @@ public class UserService {
         User user = repository.findByName(name).orElseThrow(
                 () -> new IllegalArgumentException("NotFoundName")
         );
-
         return new ReadUserResponse(new UserDto(user));
+    }
+    @Transactional
+    public UpdateUserResponse update(Long id, UpdateUserRequest request) {
+        User user = repository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("유저 없음.")
+        );
+        if (!request.getName().isEmpty()) user.setName(request.getName());
+        if (!request.getEmail().isEmpty()) user.setEmail(request.getEmail());
+        return new UpdateUserResponse(new UserDto(user));
+    }
+
+    public void DeleteUserResponse delete(Long id) {
+        repository.deleteById(id);
 
     }
 }

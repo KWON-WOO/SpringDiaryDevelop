@@ -1,4 +1,4 @@
-package com.springdiaryproject.springdiarydevelop.dto;
+package com.springdiaryproject.springdiarydevelop.dto.Schedule;
 
 import lombok.Getter;
 

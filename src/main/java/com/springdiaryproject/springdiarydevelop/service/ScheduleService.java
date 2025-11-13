@@ -9,26 +9,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class DiaryService {
-    private final ScheduleRepository scheduleRepository;
+public class ScheduleService {
+    private final ScheduleRepository repository;
 
     @Transactional
-    public CreateScheduleResponse saveSchedule(CreateScheduleRequest request) {
+    public CreateScheduleResponse save(CreateScheduleRequest request) {
         Schedule schedule = new Schedule(request);
-        ScheduleDto dto = new ScheduleDto(scheduleRepository.save(schedule));
+        ScheduleDto dto = new ScheduleDto(repository.save(schedule));
         return new CreateScheduleResponse(dto);
     }
 
     @Transactional(readOnly = true)
-    public ReadScheduleResponse readSchedule(Long id) {
-        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+    public ReadScheduleResponse read(Long id) {
+        Schedule schedule = repository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("잘못된 입력값.")
         );
         return new ReadScheduleResponse(new ScheduleDto(schedule));
     }
 
     @Transactional
-    public UpdateScheduleResponse updateSchedule(Long id, UpdateScheduleRequest request) {
+    public UpdateScheduleResponse update(Long id, UpdateScheduleRequest request) {
         Schedule schedule = getSchedule(id);
         if (!request.getName().isEmpty()) schedule.setName(request.getName());
         if (!request.getTitle().isEmpty()) schedule.setTitle(request.getTitle());
@@ -38,13 +38,12 @@ public class DiaryService {
     }
 
     @Transactional
-    public void deleteSchedule(Long id) {
-        scheduleRepository.delete(getSchedule(id));
+    public void delete(Long id) {
+        repository.delete(getSchedule(id));
 
     }
-
     public Schedule getSchedule(Long id) {
-        return scheduleRepository.findById(id).orElseThrow(
+        return repository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("잘못된 값")
         );
     }

@@ -27,5 +27,6 @@ public class User extends BaseEntity {
     public User(CreateUserRequest request) {
         this.name = request.getName();
         this.email = request.getEmail();
+        this.password = request.getPassword();
     }
 }

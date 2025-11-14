@@ -16,9 +16,13 @@ public class UserService {
 
     @Transactional
     public CreateUserResponse create(CreateUserRequest request) {
-        User user = new User(request);
-        UserDto dto = new UserDto(repository.save(user));
-        return new CreateUserResponse(dto);
+        if(!repository.existsByEmail(request.getEmail())) {
+            User user = new User(request);
+            UserDto dto = new UserDto(repository.save(user));
+            return new CreateUserResponse(dto);
+        } else {
+            throw new IllegalArgumentException("이미 존재하는 유저");
+        }
     }
 
     @Transactional

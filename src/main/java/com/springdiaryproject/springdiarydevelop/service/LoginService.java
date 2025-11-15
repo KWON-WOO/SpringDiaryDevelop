@@ -1,6 +1,6 @@
 package com.springdiaryproject.springdiarydevelop.service;
 
-import com.springdiaryproject.springdiarydevelop.dto.LoginDto;
+import com.springdiaryproject.springdiarydevelop.dto.Login.LoginDto;
 import com.springdiaryproject.springdiarydevelop.entity.User;
 import com.springdiaryproject.springdiarydevelop.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;

@@ -4,12 +4,11 @@ import jakarta.servlet.*;
 
 import java.io.IOException;
 
-@
-public class AuthFilter extends Filter {
+public class AuthFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        super.init(filterConfig);
+        Filter.super.init(filterConfig);
     }
 
     @Override
@@ -19,6 +18,6 @@ public class AuthFilter extends Filter {
 
     @Override
     public void destroy() {
-        super.destroy();
+        Filter.super.destroy();
     }
 }

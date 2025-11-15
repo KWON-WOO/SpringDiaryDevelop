@@ -12,32 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 public class DiaryController {
-    private final ScheduleService scheduleService;
     private final UserService userService;
-
-    @PostMapping("/schedules")
-    public ResponseEntity<CreateScheduleResponse> createSchedule(@RequestBody CreateScheduleRequest request) {
-        CreateScheduleResponse response = scheduleService.save(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
-
-    @GetMapping("/schedules")
-    public ResponseEntity<ReadScheduleResponse> readSchedule(@RequestParam Long id) {
-        ReadScheduleResponse result = scheduleService.read(id);
-        return ResponseEntity.status(HttpStatus.OK).body(result);
-    }
-
-    @PatchMapping("/schedules")
-    public ResponseEntity<UpdateScheduleResponse> updateSchedule(@RequestParam Long id, @RequestBody UpdateScheduleRequest request) {
-        UpdateScheduleResponse result = scheduleService.update(id, request);
-        return ResponseEntity.status(HttpStatus.OK).body(result);
-    }
-
-    @DeleteMapping("/schedules")
-    public ResponseEntity<Void> deleteSchedule(@RequestParam Long id) {
-        scheduleService.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
 
     @PostMapping("/signup")
     public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest request) {

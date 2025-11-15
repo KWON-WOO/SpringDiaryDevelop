@@ -1,7 +1,10 @@
 package com.springdiaryproject.springdiarydevelop.service;
 
+import com.springdiaryproject.springdiarydevelop.dto.Login.LoginInfo;
 import com.springdiaryproject.springdiarydevelop.dto.Schedule.*;
 import com.springdiaryproject.springdiarydevelop.entity.Schedule;
+import com.springdiaryproject.springdiarydevelop.exception.CustomException;
+import com.springdiaryproject.springdiarydevelop.exception.StateCode;
 import com.springdiaryproject.springdiarydevelop.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,17 +16,15 @@ public class ScheduleService {
     private final ScheduleRepository repository;
 
     @Transactional
-    public CreateScheduleResponse save(CreateScheduleRequest request) {
-        Schedule schedule = new Schedule(request);
+    public CreateScheduleResponse save(String name, CreateScheduleRequest request) {
+        Schedule schedule = new Schedule(name, request);
         ScheduleDto dto = new ScheduleDto(repository.save(schedule));
         return new CreateScheduleResponse(dto);
     }
 
     @Transactional(readOnly = true)
     public ReadScheduleResponse read(Long id) {
-        Schedule schedule = repository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("잘못된 입력값.")
-        );
+        Schedule schedule = getSchedule(id);
         return new ReadScheduleResponse(new ScheduleDto(schedule));
     }
 
@@ -45,7 +46,7 @@ public class ScheduleService {
 
     public Schedule getSchedule(Long id) {
         return repository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("잘못된 값")
+                () -> new CustomException(StateCode.BAD_REQUEST)
         );
     }
 

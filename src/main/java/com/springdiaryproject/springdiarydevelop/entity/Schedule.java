@@ -26,8 +26,8 @@ public class Schedule extends BaseEntity{
     @Column(nullable=false)
     private String content;
 
-    public Schedule(CreateScheduleRequest request) {
-        this.name = request.getName();
+    public Schedule(String name, CreateScheduleRequest request) {
+        this.name = name;
         this.title = request.getTitle();
         this.content = request.getContent();
     }

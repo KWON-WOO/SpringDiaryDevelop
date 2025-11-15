@@ -9,7 +9,7 @@ public enum StateCode {
     ACCEPTED(202, "Accept"),
     NO_CONTENT(204,"No Content"),
 
-        /***** 400 code *****/
+        /***** 4xx code *****/
     UNAUTHORIZED(401,"Unauthorized"),
     FORBIDDEN(403, "Forbidden");
 

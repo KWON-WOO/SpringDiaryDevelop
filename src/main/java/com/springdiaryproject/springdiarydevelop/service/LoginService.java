@@ -17,7 +17,6 @@ public class LoginService {
     HttpSession session;
     @Transactional
     public String login(HttpServletRequest servletRequest, @RequestBody LoginRequest loginRequest) {
-        boolean loginFlag;
         User user = repository.findByEmailAndPassword(loginRequest.getEmail(), loginRequest.getPassword()).orElseThrow(
                 () -> new IllegalArgumentException("아이디나 비번이 틀림")
         );

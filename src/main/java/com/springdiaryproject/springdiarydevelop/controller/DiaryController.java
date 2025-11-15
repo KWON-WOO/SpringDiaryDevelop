@@ -1,9 +1,12 @@
 package com.springdiaryproject.springdiarydevelop.controller;
 
+import com.springdiaryproject.springdiarydevelop.dto.LoginDto;
 import com.springdiaryproject.springdiarydevelop.dto.Schedule.*;
 import com.springdiaryproject.springdiarydevelop.dto.User.*;
 import com.springdiaryproject.springdiarydevelop.service.ScheduleService;
 import com.springdiaryproject.springdiarydevelop.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,5 +64,12 @@ public class DiaryController {
     public ResponseEntity<Void> delete(@RequestParam Long id) {
         userService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    private LoginDto checkLoginAndGet(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if (session == null)
+            throw new IllegalArgumentException("로그인이 필요합니다.");
+        return (LoginDto)session.getAttribute("user");
     }
 }

@@ -1,5 +1,7 @@
 package com.springdiaryproject.springdiarydevelop.filter;
 
+import com.springdiaryproject.springdiarydevelop.exception.CustomException;
+import com.springdiaryproject.springdiarydevelop.exception.StateCode;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +21,7 @@ public class AuthFilter implements Filter {
 
         String uri = request.getRequestURI();
         if (isLoggedIn && (uri.startsWith("/schedules") || uri.startsWith("/users"))) {
-            throw new IllegalArgumentException("로그인 해주쇼");
+            throw new CustomException(StateCode.UNAUTHORIZED, "로그인 해주십쇼");
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

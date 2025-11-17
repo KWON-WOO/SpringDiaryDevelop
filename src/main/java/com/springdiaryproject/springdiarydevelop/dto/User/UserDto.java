@@ -20,4 +20,10 @@ public class UserDto {
         this.createdAt = user.getCreatedAt();
         this.modifiedAt = user.getModifiedAt();
     }
+
+
+    public static UserDto of(User user) {
+        return new UserDto(user);
+    }
+
 }

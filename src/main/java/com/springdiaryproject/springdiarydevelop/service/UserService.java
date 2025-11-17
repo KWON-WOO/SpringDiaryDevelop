@@ -1,5 +1,6 @@
 package com.springdiaryproject.springdiarydevelop.service;
 
+import com.springdiaryproject.springdiarydevelop.Config.PasswordEncoder;
 import com.springdiaryproject.springdiarydevelop.dto.User.*;
 import com.springdiaryproject.springdiarydevelop.entity.User;
 import com.springdiaryproject.springdiarydevelop.repository.UserRepository;
@@ -13,12 +14,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public CreateUserResponse create(CreateUserRequest request) {
         if(!repository.existsByEmail(request.getEmail())) {
+            String passwordEncoding = passwordEncoder.encode(request.getPassword());
+            request.setPassword(passwordEncoding);
             User user = new User(request);
-            UserDto dto = new UserDto(repository.save(user));
+            UserDto dto = UserDto.of(repository.save(user));
             return new CreateUserResponse(dto);
         } else {
             throw new IllegalArgumentException("이미 존재하는 유저");
@@ -30,7 +34,7 @@ public class UserService {
         User user = repository.findByName(name).orElseThrow(
                 () -> new IllegalArgumentException("NotFoundName")
         );
-        return new ReadUserResponse(new UserDto(user));
+        return new ReadUserResponse(UserDto.of(user));
     }
 
     @Transactional
@@ -40,7 +44,7 @@ public class UserService {
         );
         if (!request.getName().isEmpty()) user.setName(request.getName());
         if (!request.getEmail().isEmpty()) user.setEmail(request.getEmail());
-        return new UpdateUserResponse(new UserDto(user));
+        return new UpdateUserResponse(UserDto.of(user));
     }
 
     @Transactional

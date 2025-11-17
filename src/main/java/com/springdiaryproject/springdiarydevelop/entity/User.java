@@ -1,6 +1,6 @@
 package com.springdiaryproject.springdiarydevelop.entity;
 
-import com.springdiaryproject.springdiarydevelop.dto.User.CreateUserRequest;
+import com.springdiaryproject.springdiarydevelop.dto.user.CreateUserRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

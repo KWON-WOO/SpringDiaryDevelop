@@ -1,6 +1,6 @@
 package com.springdiaryproject.springdiarydevelop.controller;
 
-import com.springdiaryproject.springdiarydevelop.dto.Login.LoginDto;
+import com.springdiaryproject.springdiarydevelop.dto.login.LoginDto;
 import com.springdiaryproject.springdiarydevelop.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

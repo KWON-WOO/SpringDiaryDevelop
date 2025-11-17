@@ -1,4 +1,4 @@
-package com.springdiaryproject.springdiarydevelop.dto.User;
+package com.springdiaryproject.springdiarydevelop.dto.user;
 
 public class DeleteUserRequest {
     private String password;

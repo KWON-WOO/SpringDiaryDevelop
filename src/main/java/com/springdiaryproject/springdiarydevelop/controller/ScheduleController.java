@@ -1,7 +1,7 @@
 package com.springdiaryproject.springdiarydevelop.controller;
 
-import com.springdiaryproject.springdiarydevelop.dto.Login.LoginInfo;
-import com.springdiaryproject.springdiarydevelop.dto.Schedule.*;
+import com.springdiaryproject.springdiarydevelop.dto.login.LoginInfo;
+import com.springdiaryproject.springdiarydevelop.dto.schedule.*;
 import com.springdiaryproject.springdiarydevelop.service.ScheduleService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

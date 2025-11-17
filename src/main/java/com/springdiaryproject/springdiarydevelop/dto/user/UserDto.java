@@ -1,4 +1,4 @@
-package com.springdiaryproject.springdiarydevelop.dto.User;
+package com.springdiaryproject.springdiarydevelop.dto.user;
 
 import com.springdiaryproject.springdiarydevelop.entity.User;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.springdiaryproject.springdiarydevelop.dto.Login;
+package com.springdiaryproject.springdiarydevelop.dto.login;
 
 import lombok.Getter;
 

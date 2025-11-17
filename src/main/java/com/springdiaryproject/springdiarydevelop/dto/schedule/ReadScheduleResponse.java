@@ -1,19 +1,18 @@
-package com.springdiaryproject.springdiarydevelop.dto.Schedule;
+package com.springdiaryproject.springdiarydevelop.dto.schedule;
 
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class UpdateScheduleResponse {
+public class ReadScheduleResponse {
     private final Long id;
     private final String name;
     private final String title;
     private final String content;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
-
-    public UpdateScheduleResponse(ScheduleDto dto) {
+    public ReadScheduleResponse(ScheduleDto dto) {
         this.id = dto.getId();
         this.name = dto.getName();
         this.title = dto.getTitle();

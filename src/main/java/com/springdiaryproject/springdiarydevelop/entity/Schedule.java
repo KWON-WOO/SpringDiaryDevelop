@@ -1,6 +1,6 @@
 package com.springdiaryproject.springdiarydevelop.entity;
 
-import com.springdiaryproject.springdiarydevelop.dto.Schedule.CreateScheduleRequest;
+import com.springdiaryproject.springdiarydevelop.dto.schedule.CreateScheduleRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

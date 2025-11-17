@@ -1,7 +1,6 @@
 package com.springdiaryproject.springdiarydevelop.service;
 
-import com.springdiaryproject.springdiarydevelop.dto.Login.LoginInfo;
-import com.springdiaryproject.springdiarydevelop.dto.Schedule.*;
+import com.springdiaryproject.springdiarydevelop.dto.schedule.*;
 import com.springdiaryproject.springdiarydevelop.entity.Schedule;
 import com.springdiaryproject.springdiarydevelop.exception.CustomException;
 import com.springdiaryproject.springdiarydevelop.exception.StateCode;

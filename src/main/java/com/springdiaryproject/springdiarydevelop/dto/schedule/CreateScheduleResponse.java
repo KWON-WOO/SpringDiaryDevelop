@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Getter
 public class CreateScheduleResponse {
     private final Long id;
-    private final String name;
+    private final Long userId;
     private final String title;
     private final String content;
     private final LocalDateTime createdAt;
@@ -15,7 +15,7 @@ public class CreateScheduleResponse {
 
     public CreateScheduleResponse(ScheduleDto dto) {
         this.id = dto.getId();
-        this.name = dto.getName();
+        this.userId = dto.getUserId();
         this.title = dto.getTitle();
         this.content = dto.getContent();
         this.createdAt = dto.getCreatedAt();

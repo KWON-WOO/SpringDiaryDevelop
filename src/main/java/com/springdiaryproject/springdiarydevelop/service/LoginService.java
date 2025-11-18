@@ -30,6 +30,6 @@ public class LoginService {
             throw new CustomException(StateCode.UNAUTHORIZED);
         }
 
-        return new LoginSessionInfo(user.getId(), user.getName(), user.getEmail());
+        return new LoginSessionInfo(user.getId(), user.getEmail());
     }
 }

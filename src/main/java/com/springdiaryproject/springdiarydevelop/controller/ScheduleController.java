@@ -1,6 +1,6 @@
 package com.springdiaryproject.springdiarydevelop.controller;
 
-import com.springdiaryproject.springdiarydevelop.dto.login.LoginInfo;
+import com.springdiaryproject.springdiarydevelop.dto.login.LoginSessionInfo;
 import com.springdiaryproject.springdiarydevelop.dto.schedule.*;
 import com.springdiaryproject.springdiarydevelop.service.ScheduleService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,8 +20,8 @@ public class ScheduleController {
     @PostMapping
     public ResponseEntity<CreateScheduleResponse> create(HttpServletRequest servletRequest, @RequestBody CreateScheduleRequest request) {
         HttpSession session = servletRequest.getSession();
-        LoginInfo info = (LoginInfo)session.getAttribute("user");
-        CreateScheduleResponse response = service.save(info.getName(), request);
+        LoginSessionInfo info = (LoginSessionInfo)session.getAttribute("user");
+        CreateScheduleResponse response = service.save(info, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

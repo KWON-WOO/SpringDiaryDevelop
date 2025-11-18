@@ -1,10 +1,14 @@
 package com.springdiaryproject.springdiarydevelop.service;
 
+import com.springdiaryproject.springdiarydevelop.dto.login.LoginSessionInfo;
 import com.springdiaryproject.springdiarydevelop.dto.schedule.*;
 import com.springdiaryproject.springdiarydevelop.entity.Schedule;
+import com.springdiaryproject.springdiarydevelop.entity.User;
 import com.springdiaryproject.springdiarydevelop.exception.CustomException;
 import com.springdiaryproject.springdiarydevelop.exception.StateCode;
 import com.springdiaryproject.springdiarydevelop.repository.ScheduleRepository;
+import com.springdiaryproject.springdiarydevelop.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,10 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ScheduleService {
     private final ScheduleRepository repository;
-
+    private final UserRepository userRepository;
     @Transactional
-    public CreateScheduleResponse save(String name, CreateScheduleRequest request) {
-        Schedule schedule = new Schedule(name, request);
+    public CreateScheduleResponse save(LoginSessionInfo info, CreateScheduleRequest request) {
+        User user = userRepository.findById(info.getId()).orElseThrow(
+                () -> new CustomException(StateCode.UNAUTHORIZED)
+        );
+        Schedule schedule = new Schedule(user, request);
         ScheduleDto dto = new ScheduleDto(repository.save(schedule));
         return new CreateScheduleResponse(dto);
     }
@@ -30,7 +37,6 @@ public class ScheduleService {
     @Transactional
     public UpdateScheduleResponse update(Long id, UpdateScheduleRequest request) {
         Schedule schedule = getSchedule(id);
-        if (!request.getName().isEmpty()) schedule.setName(request.getName());
         if (!request.getTitle().isEmpty()) schedule.setTitle(request.getTitle());
         if (!request.getContent().isEmpty()) schedule.setContent(request.getContent());
 

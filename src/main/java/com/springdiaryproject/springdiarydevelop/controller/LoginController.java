@@ -1,6 +1,7 @@
 package com.springdiaryproject.springdiarydevelop.controller;
 
 import com.springdiaryproject.springdiarydevelop.dto.login.LoginDto;
+import com.springdiaryproject.springdiarydevelop.dto.login.LoginSessionInfo;
 import com.springdiaryproject.springdiarydevelop.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,8 @@ public class LoginController {
 
     @PostMapping
     public ResponseEntity<Void> login(HttpServletRequest servletRequest, @RequestBody LoginDto loginRequest) {
-        service.login(servletRequest, loginRequest);
-        return ResponseEntity.status(HttpStatus.OK).build();
-
+        LoginSessionInfo info = service.login(loginRequest);
+        servletRequest.getSession().setAttribute("user", info);
+        return ResponseEntity.status(HttpStatus.OK).;
     }
 }

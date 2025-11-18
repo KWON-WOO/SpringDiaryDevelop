@@ -4,8 +4,9 @@ import com.springdiaryproject.springdiarydevelop.Config.PasswordEncoder;
 import com.springdiaryproject.springdiarydevelop.dto.login.LoginDto;
 import com.springdiaryproject.springdiarydevelop.dto.login.LoginSessionInfo;
 import com.springdiaryproject.springdiarydevelop.entity.User;
+import com.springdiaryproject.springdiarydevelop.exception.CustomException;
+import com.springdiaryproject.springdiarydevelop.exception.StateCode;
 import com.springdiaryproject.springdiarydevelop.repository.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -19,15 +20,16 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
     HttpSession session;
     @Transactional
-    public String login(HttpServletRequest servletRequest, @RequestBody LoginDto loginRequest) {
-        String passwordEncoding = passwordEncoder.encode(loginRequest.getPassword());
-        User user = repository.findByEmailAndPassword(loginRequest.getEmail(), passwordEncoding).orElseThrow(
-                () -> new IllegalArgumentException("아이디나 비번이 틀림")
-        );
-        LoginSessionInfo info = new LoginSessionInfo(user.getId(), user.getName(), user.getEmail());
-        HttpSession session = servletRequest.getSession();
-        session.setAttribute("user", info);
+    public LoginSessionInfo login(@RequestBody LoginDto loginRequest) {
 
-        return "로그인 성공";
+        User user = repository.findByEmail(loginRequest.getEmail()).orElseThrow(
+                () -> new CustomException(StateCode.BAD_REQUEST)
+        );
+
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            throw new CustomException(StateCode.UNAUTHORIZED);
+        }
+
+        return new LoginSessionInfo(user.getId(), user.getName(), user.getEmail());
     }
 }

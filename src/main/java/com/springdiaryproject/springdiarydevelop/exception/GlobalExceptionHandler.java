@@ -12,7 +12,7 @@ public class GlobalExceptionHandler{
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ExceptionResponseDto> unAuthorizedException(CustomException e) {
         StateCode code = e.getCode();
-        ExceptionResponseDto response = new ExceptionResponseDto(code.getStatus(), e.getMessage());
+        ExceptionResponseDto response = ExceptionResponseDto.res(e);
         return ResponseEntity.status(code.getStatus()).body(response);
     }
 }

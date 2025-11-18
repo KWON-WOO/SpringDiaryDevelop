@@ -29,8 +29,8 @@ public class AuthFilter implements Filter {
 
             String json = String.format("""
                     {
-                        code: %d,
-                        message: %s
+                        "code": "%d",
+                        "message": "%s"
                     }""",StateCode.UNAUTHORIZED.getStatus(),StateCode.UNAUTHORIZED.getMessage());
             response.getWriter().write(json);
             return;

@@ -20,6 +20,6 @@ public class LoginController {
     public ResponseEntity<Void> login(HttpServletRequest servletRequest, @RequestBody LoginDto loginRequest) {
         LoginSessionInfo info = service.login(loginRequest);
         servletRequest.getSession().setAttribute("user", info);
-        return ResponseEntity.status(HttpStatus.OK).;
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

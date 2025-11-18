@@ -8,13 +8,15 @@ import java.time.LocalDateTime;
 public class ReadScheduleResponse {
     private final Long id;
     private final Long userId;
+    private final String userName;
     private final String title;
     private final String content;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
     public ReadScheduleResponse(ScheduleDto dto) {
         this.id = dto.getId();
-        this.userId = dto.getUserId();
+        this.userId = dto.getUser().getId();
+        this.userName = dto.getUser().getName();
         this.title = dto.getTitle();
         this.content = dto.getContent();
         this.createdAt = dto.getCreatedAt();

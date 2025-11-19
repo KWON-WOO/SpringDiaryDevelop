@@ -24,7 +24,7 @@ public class CommentController {
     }
 
     @GetMapping("/schedules/{scheduleId}/comments")
-    public ResponseEntity<List<ReadCommentResponse>> read(HttpServletRequest servletRequest, @RequestParam Long scheduleId) {
+    public ResponseEntity<List<ReadCommentResponse>> read(@RequestParam Long scheduleId) {
         List<ReadCommentResponse> result = service.read(scheduleId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
@@ -34,5 +34,12 @@ public class CommentController {
         LoginSessionInfo info = (LoginSessionInfo)servletRequest.getSession().getAttribute("user");
         UpdateCommentResponse result = service.update(info, scheduleId, request);
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @DeleteMapping("/schedules/{}/comments")
+    public ResponseEntity<Void> delete(HttpServletRequest servletRequest, @RequestBody DeleteCommentRequest request) {
+        LoginSessionInfo info = (LoginSessionInfo)servletRequest.getSession().getAttribute("user");
+        service.delete(info, request);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

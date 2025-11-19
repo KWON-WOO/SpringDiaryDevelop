@@ -43,8 +43,8 @@ public class CommentService {
     }
 
     @Transactional
-    public UpdateCommentResponse update(LoginSessionInfo session, Long id, UpdateCommentRequest request) {
-        if (!scheduleRepository.existsById(id)) {
+    public UpdateCommentResponse update(LoginSessionInfo session, Long scheduleId, UpdateCommentRequest request) {
+        if (!scheduleRepository.existsById(scheduleId)) {
             throw new CustomException(StateCode.NOT_FOUND);
         }
         Comment comment = getComment(request.getCommentId());
@@ -54,8 +54,18 @@ public class CommentService {
         }
 
         comment.setComment(request.getComment());
-
+        commentRepository.flush();
         return new UpdateCommentResponse(CommentDto.of(comment));
+    }
+
+    @Transactional
+    public void delete(LoginSessionInfo session, DeleteCommentRequest request) {
+        if (session.getId() == request.getId()) {
+            Comment comment = getComment(request.getId());
+            commentRepository.delete(comment);
+        } else {
+            throw new CustomException(StateCode.FORBIDDEN);
+        }
     }
 
     public Schedule getSchedule(Long id) {

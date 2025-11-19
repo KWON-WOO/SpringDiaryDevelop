@@ -12,11 +12,12 @@ import com.springdiaryproject.springdiarydevelop.repository.ScheduleRepository;
 import com.springdiaryproject.springdiarydevelop.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CommentService {
@@ -25,9 +26,17 @@ public class CommentService {
     private final CommentRepository commentRepository;
     @Transactional
     public CreateCommentResponse create(LoginSessionInfo session, Long scheduleId , CreateCommentRequest request) {
-        Schedule schedule = getSchedule(session.getId());
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
+                () -> new CustomException(StateCode.FORBIDDEN)
+        );
+        log.info("comment: {}", schedule);
+        log.info("session.getId(): {}", session != null ? session.getId() : "null");
+        log.info("comment: {}", request);
         User user = getUser(session.getId());
+        log.info("comment: {}", user);
+
         Comment comment = commentRepository.save(Comment.of(schedule, user, request));
+
         return new CreateCommentResponse(CommentDto.of(comment));
     }
 

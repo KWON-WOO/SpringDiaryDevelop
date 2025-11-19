@@ -20,6 +20,8 @@ public class CommentDto {
 
     CommentDto(Comment comment) {
         this.id = comment.getId();
+        this.schedule = comment.getSchedule();
+        this.user = comment.getUser();
         this.comment = comment.getComment();
         this.createdAt = comment.getCreatedAt();
         this.modifiedAt = comment.getModifiedAt();

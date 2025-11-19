@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/login")
 public class LoginController {
     private final LoginService service;
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<Void> login(HttpServletRequest servletRequest, @RequestBody LoginDto loginRequest) {
         LoginSessionInfo info = service.login(loginRequest);
         servletRequest.getSession().setAttribute("user", info);

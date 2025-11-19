@@ -15,28 +15,28 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/schedules")
 public class CommentController {
-    CommentService service;
-    @PostMapping("/schedules/{scheduleId}/comments")
-    public ResponseEntity<CreateCommentResponse> create(HttpServletRequest servletRequest, @RequestParam Long scheduleId, @RequestBody CreateCommentRequest request) {
+    private final CommentService service;
+    @PostMapping("/{scheduleId}/comments")
+    public ResponseEntity<CreateCommentResponse> create(HttpServletRequest servletRequest, @PathVariable Long scheduleId, @RequestBody CreateCommentRequest request) {
         LoginSessionInfo info = (LoginSessionInfo)servletRequest.getSession().getAttribute("user");
         CreateCommentResponse result = service.create(info, scheduleId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    @GetMapping("/schedules/{scheduleId}/comments")
-    public ResponseEntity<List<ReadCommentResponse>> read(@RequestParam Long scheduleId) {
+    @GetMapping("/{scheduleId}/comments")
+    public ResponseEntity<List<ReadCommentResponse>> read(@PathVariable Long scheduleId) {
         List<ReadCommentResponse> result = service.read(scheduleId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @PatchMapping("/schedules/{scheduleId}/comments")
-    public ResponseEntity<UpdateCommentResponse> update(HttpServletRequest servletRequest, @RequestParam Long scheduleId, @RequestBody UpdateCommentRequest request) {
+    @PatchMapping("/{scheduleId}/comments")
+    public ResponseEntity<UpdateCommentResponse> update(HttpServletRequest servletRequest, @PathVariable Long scheduleId, @RequestBody UpdateCommentRequest request) {
         LoginSessionInfo info = (LoginSessionInfo)servletRequest.getSession().getAttribute("user");
         UpdateCommentResponse result = service.update(info, scheduleId, request);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @DeleteMapping("/schedules/{}/comments")
+    @DeleteMapping("/{}/comments")
     public ResponseEntity<Void> delete(HttpServletRequest servletRequest, @RequestBody DeleteCommentRequest request) {
         LoginSessionInfo info = (LoginSessionInfo)servletRequest.getSession().getAttribute("user");
         service.delete(info, request);

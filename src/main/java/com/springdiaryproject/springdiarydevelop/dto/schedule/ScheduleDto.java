@@ -22,4 +22,8 @@ public class ScheduleDto {
         this.createdAt = schedule.getCreatedAt();
         this.modifiedAt = schedule.getModifiedAt();
     }
+
+    public static ScheduleDto of(Schedule schedule) {
+        return new ScheduleDto(schedule);
+    }
 }

@@ -32,5 +32,4 @@ public class Schedule extends BaseEntity{
         this.title = request.getTitle();
         this.content = request.getContent();
     }
-
 }

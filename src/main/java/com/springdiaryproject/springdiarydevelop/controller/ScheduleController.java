@@ -6,6 +6,7 @@ import com.springdiaryproject.springdiarydevelop.service.ScheduleService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +26,17 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping
-    public ResponseEntity<ReadScheduleResponse> read(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ReadScheduleResponse> read(@PathVariable Long id) {
         ReadScheduleResponse result = service.read(id);
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<ReadSchedulePageResponse>> readScheduleList(@SessionAttribute(name="user", required=false) LoginSessionInfo session,
+                                                                           @RequestParam(required = false, defaultValue = "0", value="page") int pageNo,
+                                                                           @RequestParam(required = false, defaultValue = "10", value="size") int pageSize) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.readScheduleList(session, pageNo, pageSize));
     }
 
     @PatchMapping

@@ -10,8 +10,14 @@ import com.springdiaryproject.springdiarydevelop.repository.ScheduleRepository;
 import com.springdiaryproject.springdiarydevelop.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +38,13 @@ public class ScheduleService {
     public ReadScheduleResponse read(Long id) {
         Schedule schedule = getSchedule(id);
         return new ReadScheduleResponse(new ScheduleDto(schedule));
+    }
+
+    @Transactional(readOnly=true)
+    public Page<ReadSchedulePageResponse> readScheduleList(LoginSessionInfo session, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "modifiedAt"));
+        Page<ReadSchedulePageResponse> dtos = repository.findAllScheduleWithCommentCount(pageable);
+        return dtos;
     }
 
     @Transactional

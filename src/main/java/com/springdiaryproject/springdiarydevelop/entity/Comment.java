@@ -23,6 +23,7 @@ public class Comment extends BaseEntity{
 
     private String comment;
 
+    public Comment() {}
     public Comment(Schedule schedule, User user, CreateCommentRequest request) {
         this.schedule = schedule;
         this.user = user;

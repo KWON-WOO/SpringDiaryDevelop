@@ -1,7 +1,10 @@
 package com.springdiaryproject.springdiarydevelop.dto.comment;
 
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
+@Getter
 public class ReadCommentResponse {
     private final Long id;
     private final String scheduleTitle;
